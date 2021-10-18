@@ -2,9 +2,11 @@ package bd_tp6;
 
 import java.lang.reflect.Array;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import org.neo4j.driver.v1.*;
 import org.neo4j.driver.v1.types.Node;
+
 
 
 
@@ -54,17 +56,6 @@ public class Tp6 {
 		Session session = driver.session();
 		
 		// Traitement
-		/*StatementResult result = session.run( 
-				"match (Person)-[]->(m :Movie) " + 
-				"with distinct m.title as titles " + 
-				"order by titles ASC " + 
-				"match (p :Person)-[r]->(m1 :Movie) " + 
-				"where m1.title = titles " + 
-				"with p.name as n, p.born as b, type (r) as ty, collect(m1.title) as t " + 
-				"order by ty ASC " + 
-				"return n,b,collect({typ:ty,titl:t}) as c " + 
-				"order by n ASC" );*/
-		
 		StatementResult result = session.run( 
 				"match (Person)-[]->(m :Movie) " + 
 				"with distinct m.title as titles " + 
@@ -73,8 +64,19 @@ public class Tp6 {
 				"where m1.title = titles " + 
 				"with p.name as n, p.born as b, type (r) as ty, collect(m1.title) as t " + 
 				"order by ty ASC " + 
-				"return n,b,collect(ty+' : '+t) as c " + 
+				"return n,b,collect({typ:ty,titl:t}) as c " + 
 				"order by n ASC" );
+		
+		/*StatementResult result = session.run( 
+				"match (Person)-[]->(m :Movie) " + 
+				"with distinct m.title as titles " + 
+				"order by titles ASC " + 
+				"match (p :Person)-[r]->(m1 :Movie) " + 
+				"where m1.title = titles " + 
+				"with p.name as n, p.born as b, type (r) as ty, collect(m1.title) as t " + 
+				"order by ty ASC " + 
+				"return n,b,collect(ty+' : '+t) as c " + 
+				"order by n ASC" );*/
 		
 		
 		// Affichage
@@ -90,12 +92,20 @@ public class Tp6 {
 			List<Object> collect = record.get("c").asList();
 			System.out.println( name + " (" + born + ")");
 			for(int i=0; i<collect.size();i++) {
-				System.out.println("	" + collect.get(i).toString());
+				Map<Object,Object> c = (Map<Object, Object>) collect.get(i);
+				for(Object d : c.keySet()) {
+					if(d.equals("typ")) {
+						System.out.print("	" + c.get(d) + " ");
+					}
+					else {
+						System.out.println(c.get(d));
+					}
+				}
+				//System.out.println("	" + collect.get(i).toString());
 			}
-			
-			/*for (Object c : collect) {
-	            System.out.println(c);
-	        }*/
+			/*for(Object d : ((Map<Object, Object>) collect).keySet()) {
+				System.out.println(d);
+			}*/
 		}
 		
 		// Fermeture de la session
