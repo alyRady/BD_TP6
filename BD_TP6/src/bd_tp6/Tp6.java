@@ -141,7 +141,7 @@ public class Tp6 {
 		Session session = driver.session();
 						
 		// Traitement
-		StatementResult result = session.run( 
+		/*StatementResult result = session.run( 
 			"match (p: Person)-[a:ACTED_IN]->(m: Movie) " + 
 			"where m.title = '" + film + "' " + 
 			"with p as name " + 
@@ -149,7 +149,14 @@ public class Tp6 {
 			"where m2.title <> '" + film + "' " + 
 			"AND p2 = name " + 
 			"return m2.title, count(p2) as nb " + 
-			"order by nb DESC, m2.title ASC" );
+			"order by nb DESC, m2.title ASC" );*/
+		
+		StatementResult result = session.run( 
+				"match (m2: Movie)<-[a2: ACTED_IN]-(p: Person)-[a: ACTED_IN]->(m: Movie) " + 
+				"where m.title = '" + film + "' " +
+				"return m2.title, count(p) as nb " + 
+				"order by nb DESC, m2.title ASC " + 
+				"Limit 5" );
 						
 		// Affichage
 		while ( result.hasNext() )
