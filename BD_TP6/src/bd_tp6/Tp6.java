@@ -157,15 +157,22 @@ public class Tp6 {
 				"return m2.title, count(p) as nb " + 
 				"order by nb DESC, m2.title ASC " + 
 				"Limit 5" );
-						
-		// Affichage
-		while ( result.hasNext() )
-			{
-				Record record = result.next();
-				String title = record.get("m2.title").asString();
-				int nb = record.get("nb").asInt();
-				System.out.println("	"+ title + " - " + nb);
-			}
+		
+		if(result.hasNext()) {
+			// Affichage
+			System.out.println("Au plus 5 Films proches de " + "\'" + film + "\' :");
+			while ( result.hasNext() )
+				{
+					Record record = result.next();
+					String title = record.get("m2.title").asString();
+					int nb = record.get("nb").asInt();
+					System.out.println("	"+ title + " - " + nb);
+				}
+		}
+		
+		else {
+			System.out.println("Le film " + "\'" + film + "\' n'existe pas dans la base....");
+		}
 				
 		// Fermeture de la session
 		session.close();
@@ -198,7 +205,7 @@ public class Tp6 {
 			listerPersonnesDispos();
 			break;
 		case 3:
-			System.out.println("3 films les mieux notés : ");
+			System.out.println("3 Films les mieux notés : ");
 			afficherFilmsMieuxNotes();
 			break;
 		case 4:
