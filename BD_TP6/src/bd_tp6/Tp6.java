@@ -19,14 +19,14 @@ public class Tp6 {
 		System.out.println("////////////////////////////////////////////////////");
 		System.out.println("1. Lister les films disponibles");
 		System.out.println("2. Lister les personnes disponibles");
-		System.out.println("3. Afficher les 3 films les mieux notés");
+		System.out.println("3. Afficher les 3 films les mieux notï¿½s");
 		System.out.println("4. Afficher au plus 5 films 'proches'");
 		System.out.println("0. Quitter");
 		System.out.println("////////////////////////////////////////////////////");
 	}
 	
 	public static void listerFilmsDispos() {
-		// Démarrer une session
+		// Dï¿½marrer une session
 		Session session = driver.session();
 		
 		// Traitement
@@ -52,7 +52,7 @@ public class Tp6 {
 	}
 	
 	public static void listerPersonnesDispos() {
-		// Démarrer une session
+		// Dï¿½marrer une session
 		Session session = driver.session();
 		
 		// Traitement
@@ -113,7 +113,7 @@ public class Tp6 {
 	}
 
 	public static void afficherFilmsMieuxNotes() {
-		// Démarrer une session
+		// Dï¿½marrer une session
 		Session session = driver.session();
 				
 		// Traitement
@@ -137,7 +137,7 @@ public class Tp6 {
 	}
 	
 	public static void afficherFilmsProches(String film) {
-		// Démarrer une session
+		// Dï¿½marrer une session
 		Session session = driver.session();
 						
 		// Traitement
@@ -180,7 +180,7 @@ public class Tp6 {
 	
 	public static void main(String [] a){
 	
-	// Démarrer une session
+	// Dï¿½marrer une session
 	Session session = driver.session();
 	
 	Scanner in = new Scanner(System.in);
@@ -190,10 +190,10 @@ public class Tp6 {
 	boolean quitter = false;
 
 	int menuItem;
-
+	// Appli
 	do {
 		afficherMenu();
-		System.out.print("Veuillez choisir un élément du menu : ");
+		System.out.print("Veuillez choisir un ï¿½lï¿½ment du menu : ");
 		menuItem = in.nextInt();
 		switch (menuItem) {
 		case 1:
@@ -205,7 +205,7 @@ public class Tp6 {
 			listerPersonnesDispos();
 			break;
 		case 3:
-			System.out.println("3 Films les mieux notés : ");
+			System.out.println("3 Films les mieux notï¿½s : ");
 			afficherFilmsMieuxNotes();
 			break;
 		case 4:
